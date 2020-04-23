@@ -1,0 +1,41 @@
+﻿/* Language name */
+"!Language" = "Deutsch";
+
+/* COMBAT ranks*/
+"Elated" = "Begeistert";
+"Happy" = "Glücklich";
+"Discontented" = "Unzufrieden";
+"Unhappy" = "Unglücklich";
+"Despondent" = "Niedergeschlagen";
+"Investment" = "Investition";
+"Boom" = "Boom";
+"Bust" = "Pleite";
+"Famine" = "Hungernd";
+"CivilLiberty" = "Bürgerliche Freiheit";
+"CivilUnrest" = "Zivile Unruhen";
+"Expansion" = "Expansion";
+"Retreat" = "Rückzug";
+"Outbreak" = "Ausbruch";
+"Elections" = "Wahlen";
+"CivilWar" = "Bürgerkrieg";
+"War" = "Krieg";
+"Exiled" = "Verbannt";
+"PirateAttack" = "Piratenangriff";
+"Infested" = "Befallen";
+"Incursion" = "Invasion";
+"Blight" = "Verdorben";
+"Drought" = "Dürre";
+"InfrastructureFailure" = "Infrastrukturfehler";
+"NaturalDisaster" = "Naturkatastrophe";
+"PublicHoliday" = "Gesetzlicher Feiertag";
+"TerroristAttack" = "Terroranschlag";
+
+"GPL Influence:" = "Einfluss der GPL:";
+"Own GPL-Reputation:" = "Eigene GPL-Reputation:";
+
+"1. Show other System Factions" = "1. Zeige andere System Fraktionen";
+"1.A. Show 'Pilots' Federation Local Branch'-Faction in Factionlist (only if Option 1 active)" = "1.A. Zeige Fraktion 'Pilots' Federation Local Branch' in Fraktionsansicht (nur wenn 1. aktiviert)";
+"2. Show Extra influence for GPL-Faction" = "2. Zeige zusätzlich Einfluß der GPL";
+"3. Show own Reputation for GPL" = "3. Zeige eigene Reputation in der GPL";
+"4. Show colorized percentage values" = "4. Zeige farbige Prozent-Werte";
+"Dark Theme" = "Dunkles Design";
