@@ -4,7 +4,7 @@ Das ist ein einfaches Plugin für den [ED MarketConnector](https://github.com/Mar
 
 ![In-game Screenshot](edmc_plugins_gpl.png)
 
-![In-game Screenshot](edmc_plugins_dark.png)
+![In-game Screenshot](edmc_plugins_dark.png) ![In-game Screenshot](edmc_plugins_gpl_2.png)
 
 ![In-game Screenshot](edmc_plugins_light.png) ![In-game Screenshot](edmc_plugins_light_nocolor.png) 
 
@@ -43,9 +43,15 @@ Je nach gewählten Optionen kann das Plugin folgendes anzeigen:
 - zeigt den Einfluß der GPL-Fraktion in einer zusätzlichen zeile an
 - dient eigentlich dafür den Einfluß anzuzeigen auch wenn andere Fraktionen (Option 1) deaktiviert sind
 
-3. Zeige eigene Reputation in der GPL
+2. A. Integriere Hinweise in der Fraktionsliste
+- markiert die Fraktion 'German Pilot Lounge' innerhalb der Fraktionsliste und entfernt den extra Eintrag oberhalb der Fraktionsliste
+
+3. Zeige eigene Reputation
 - zeigt den Spielereigenen Ruf bei der GPL-Fraktion an
 - der eigene Ruf wird nur angezeigt wenn die GPL im aktuellen System vertreten ist, andernfalls wird es ausgeblendet
+
+3. A. Zeige eigene Reputation bei allen Fraktionen
+- zeigt die Reputationswerte für alle im System vorhandenen Fraktionen an, nicht nur die der GPL, die zusätzliche Zeile oberhalb der Fraktionsliste wird entfernt und es wird eine zusätzliche Spalte eingeblendet mit den Rufpunkten der einzelnen Fraktionen
 
 4. Zeige farbige Prozentwerte
 - die Prozentwerte des Einflußes werden zusätzlich coloriert dargestellt wenn diese Option aktiviert ist, dies gilt für alle angezeigten Prozentwerte
