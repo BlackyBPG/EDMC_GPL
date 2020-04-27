@@ -22,7 +22,7 @@ this.showgpl = tk.IntVar(value=1)
 this.showrep = tk.IntVar(value=1)
 this.showpil = tk.IntVar(value=0)
 
-APP_VERSION = "20.04.25_b1015"
+APP_VERSION = "20.04.27_b2035"
 
 COLOR_R_RED = [64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,67,70,73,76,79,82,85,88,91,94,97,100,103,106,109,112,115,118,121,124,127,130,133,136,139,142,145,148,151,154,157,160,163,166,169,172,175,178,181,184,187,190,193,196,199,202,205,208,211,214,214,214,215,215,216,216,216,217,217,218,218,218,219,219,220,220,220,221,221,222,222,222,223,223,224,224,224,225,225,226,226,226,227,227,228,228,228,229,229,230,230,230,231,231,232,232,232,233,233,234,234,234,235,235,236,236,236,237,237,238,238,238,239,239,240,240,240,241,241,242,242,242,243,243,244,244,244,245,245,246,246,246,247,247,248,248,248,249,249,250,250,250,251,251,252,252,252,253,253,254]
 COLOR_R_GREEN = [255,254,254,253,253,252,252,251,251,250,250,249,249,248,248,247,247,246,246,245,245,244,244,243,243,242,242,241,241,240,240,239,239,238,238,237,237,236,236,235,235,234,234,233,233,232,232,231,231,230,230,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,251,247,243,239,235,234,232,230,229,227,225,224,222,220,219,217,215,214,212,210,209,207,205,204,202,200,199,197,195,194,192,190,189,187,185,184,182,180,179,177,175,174,172,170,169,167,165,164,162,160,159,157,155,154,152,150,149,147,145,144,142,140,139,137,135,134,132,130,129,127,125,124,122,120,119,117,115,114,112,110,109,107,105,104,102,100,99,97,95,94,92,90,89,87,85,84,82,80,79,77,75,74,72,70,69]
@@ -32,7 +32,7 @@ COLOR_I_RED = [64,68,72,75,79,83,86,90,94,97,101,105,108,112,116,119,123,127,130
 COLOR_I_GREEN = [248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,248,244,240,237,233,229,226,222,218,215,211,207,204,200,196,193,189,185,182,178,174,171,167,163,160,156,152,149,145,141,138,134,130,127,123,119,116,112,108,105,101,97,94,90,86,83,79,75,72,68,64]
 COLOR_I_BLUE = [64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64]
 
-COLOR_NORM = ("#000000", "#80FFFF", "#0018C9", "#FF8000")
+COLOR_NORM = ("#000000", "#80FFFF", "#0018FF", "#FF8000")
 
 MAX_FACTIONS = 14
 DEFAULT_SHOWGPL = 1
@@ -66,6 +66,8 @@ class Gpl(object):
     widget_Perc = []
     widget_Rep = []
     widget_PercRep = []
+    widget_ColorA = []
+    widget_ColorB = []
     reputation = 0
     influence = 0
     oldlen = 0
@@ -179,7 +181,6 @@ class Gpl(object):
         if len(self.systemfaction) > 0:
             self.frame.grid()
             self.oldlen = len(self.systemfaction)
-            themeval = 64 * (1 - self.appdesign)
             gplint = self.gplint
             repall = self.repall
             if self.showoth == 0:
@@ -209,8 +210,7 @@ class Gpl(object):
                     if (self.systemfactionmode[x] == NAME_REPUTATION and showrep == 1) or (self.systemfactionmode[x] == NAME_GPL_SHORT and showgpl == 1):
                         self.widget_Name[x-xd]["foreground"] = COLOR_NORM[self.appdesign+2]
                     elif self.systemfaction[x] == NAME_GPL and gplint == 1 and self.showgpl == 1:
-                        hexrgb = "#%02x%02x%02x" % (COLOR_I_RED[0] - themeval, COLOR_I_GREEN[0] - themeval, COLOR_R_BLUE[0] - themeval)
-                        self.widget_Name[x-xd]["foreground"] = hexrgb
+                        self.widget_Name[x-xd]["foreground"] = COLOR_NORM[self.appdesign+2]
                     else:
                         self.widget_Name[x-xd]["foreground"] = COLOR_NORM[self.appdesign]
 
@@ -222,7 +222,7 @@ class Gpl(object):
                     self.widget_State[x-xd].after(0, self.widget_State[x-xd].config, {"text": self.systemfactionstate[x]})
 
                     msg = "{}".format(Locale.stringFromNumber(self.systemfactioninflu[x], 3))
-                    self.widget_Desc[x-xd].grid(row=x-xd, column=2, sticky=tk.E)
+                    self.widget_Desc[x-xd].grid(row=x-xd, column=3, sticky=tk.E)
                     if self.showcol == 1:
                         red = COLOR_I_RED[int(100 - self.systemfactioninflu[x])]
                         green = COLOR_I_GREEN[int(100 - self.systemfactioninflu[x])]
@@ -232,29 +232,47 @@ class Gpl(object):
                             green = COLOR_R_GREEN[int(100 - self.systemfactioninflu[x])]
                             blue = COLOR_R_BLUE[int(100 - self.systemfactioninflu[x])]
 
-                        hexrgb = "#%02x%02x%02x" % (red - themeval, green - themeval, blue - themeval)
-                        self.widget_Desc[x-xd]["foreground"] = hexrgb
+                        hexrgb = "#%02x%02x%02x" % (red, green, blue)
+                        if self.appdesign == 1:
+                            self.widget_Desc[x-xd]["foreground"] = hexrgb
+                            self.widget_ColorA[x-xd].grid_forget()
+                        else:
+                            self.widget_Desc[x-xd]["foreground"] = COLOR_NORM[self.appdesign]
+                            self.widget_ColorA[x-xd].grid(row=x-xd, column=2, sticky=tk.W)
+                            self.widget_ColorA[x-xd]["foreground"] = hexrgb
+                            self.widget_ColorA[x-xd]["background"] = hexrgb
+                    else:
+                        self.widget_ColorA[x-xd].grid_forget()
 
                     self.widget_Desc[x-xd].after(0, self.widget_Desc[x-xd].config, {"text": msg})
 
-                    self.widget_Perc[x-xd].grid(row=x-xd, column=3, sticky=tk.W)
+                    self.widget_Perc[x-xd].grid(row=x-xd, column=4, sticky=tk.W)
 
                     if repall == 1 and self.showrep == 1 and not ((self.systemfactionmode[x] == NAME_REPUTATION and showrep == 1) or (self.systemfactionmode[x] == NAME_GPL_SHORT and showgpl == 1)):
                         msg = "{}".format(Locale.stringFromNumber(self.systemfactionreputation[x], 3))
-                        self.widget_Rep[x-xd].grid(row=x-xd, column=4, sticky=tk.E)
+                        self.widget_Rep[x-xd].grid(row=x-xd, column=6, sticky=tk.E)
                         red = COLOR_R_RED[int(100 - self.systemfactionreputation[x])]
                         green = COLOR_R_GREEN[int(100 - self.systemfactionreputation[x])]
                         blue = COLOR_R_BLUE[int(100 - self.systemfactionreputation[x])]
 
-                        hexrgb = "#%02x%02x%02x" % (red - themeval, green - themeval, blue - themeval)
-                        self.widget_Rep[x-xd]["foreground"] = hexrgb
+                        self.widget_Rep[x-xd]["foreground"] = COLOR_NORM[self.appdesign]
+                        if self.showcol == 1:
+                            hexrgb = "#%02x%02x%02x" % (red, green, blue)
+                            if self.appdesign == 1:
+                                self.widget_Rep[x-xd]["foreground"] = hexrgb
+                                self.widget_ColorB[x-xd].grid_forget()
+                            else:
+                                self.widget_ColorB[x-xd].grid(row=x-xd, column=5, sticky=tk.W)
+                                self.widget_ColorB[x-xd]["foreground"] = hexrgb
+                                self.widget_ColorB[x-xd]["background"] = hexrgb
 
                         self.widget_Rep[x-xd].after(0, self.widget_Rep[x-xd].config, {"text": msg})
 
-                        self.widget_PercRep[x-xd].grid(row=x-xd, column=5, sticky=tk.W)
+                        self.widget_PercRep[x-xd].grid(row=x-xd, column=7, sticky=tk.W)
                     else:
                         self.widget_Rep[x-xd].grid_forget()
                         self.widget_PercRep[x-xd].grid_forget()
+                        self.widget_ColorB[x-xd].grid_forget()
 
                 x = x + 1
 
@@ -267,6 +285,8 @@ class Gpl(object):
                 self.widget_Perc[x].grid_forget()
                 self.widget_Rep[x].grid_forget()
                 self.widget_PercRep[x].grid_forget()
+                self.widget_ColorA[x].grid_forget()
+                self.widget_ColorB[x].grid_forget()
                 x = x + 1
 
             if y == 0:
@@ -280,6 +300,8 @@ class Gpl(object):
                 self.widget_Perc[x].grid_forget()
                 self.widget_Rep[x].grid_forget()
                 self.widget_PercRep[x].grid_forget()
+                self.widget_ColorA[x].grid_forget()
+                self.widget_ColorB[x].grid_forget()
                 x = x + 1
 
             if self.oldlen > 0:
@@ -457,20 +479,28 @@ def plugin_app(parent):
         objectdesc.grid(row=i, column=1, sticky=tk.W+tk.E, padx=10)
         gpl.widget_State.append(objectdesc)
 
+        objectcolor = tk.Label(frame, text="X", justify=tk.RIGHT)
+        objectcolor.grid(row=i, column=2, sticky=tk.E)
+        gpl.widget_ColorA.append(objectcolor)
+
         objectdesc = tk.Label(frame, text="", justify=tk.RIGHT)
-        objectdesc.grid(row=i, column=2, sticky=tk.E)
+        objectdesc.grid(row=i, column=3, sticky=tk.E)
         gpl.widget_Desc.append(objectdesc)
 
         objectperc = tk.Label(frame, text="%", justify=tk.LEFT)
-        objectperc.grid(row=i, column=3, sticky=tk.W)
+        objectperc.grid(row=i, column=4, sticky=tk.W)
         gpl.widget_Perc.append(objectperc)
 
+        objectcolor = tk.Label(frame, text="X", justify=tk.RIGHT)
+        objectcolor.grid(row=i, column=5, sticky=tk.E)
+        gpl.widget_ColorB.append(objectcolor)
+
         objectrep = tk.Label(frame, text="", justify=tk.RIGHT)
-        objectrep.grid(row=i, column=4, sticky=tk.E)
+        objectrep.grid(row=i, column=6, sticky=tk.E)
         gpl.widget_Rep.append(objectrep)
 
         objectpercrep = tk.Label(frame, text="%", justify=tk.LEFT)
-        objectpercrep.grid(row=i, column=5, sticky=tk.W)
+        objectpercrep.grid(row=i, column=7, sticky=tk.W)
         gpl.widget_PercRep.append(objectpercrep)
 
         i = i + 1
@@ -478,10 +508,12 @@ def plugin_app(parent):
     
     frame.columnconfigure(0, weight=3)
     frame.columnconfigure(1, weight=3)
-    frame.columnconfigure(2, weight=2)
-    frame.columnconfigure(3, weight=1)
-    frame.columnconfigure(4, weight=2)
-    frame.columnconfigure(5, weight=1)
+    frame.columnconfigure(2, weight=0)
+    frame.columnconfigure(3, weight=2)
+    frame.columnconfigure(4, weight=1)
+    frame.columnconfigure(5, weight=0)
+    frame.columnconfigure(6, weight=2)
+    frame.columnconfigure(7, weight=1)
 
     this.spacer = tk.Frame(frame)
     gpl.frame = frame
