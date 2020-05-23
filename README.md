@@ -2,6 +2,11 @@
 
 Das ist ein einfaches Plugin für den [ED MarketConnector](https://github.com/Marginal/EDMarketConnector/wiki) welches ursprünglich einzig dem Zwecke diente den Einfluß der "German Pilot Lounge" sowie der eigenen Reputation (Ruf) bei dieser Fraktion anzuzeigen. Mittlwerweile habe ich dieses Plugin jedoch ein wenig erweitert ...
 
+Ab der Version **20.05.23_b1324** ist es nicht nur auf die GPL *(German Pilot Lounge)* beschränkt sondern ist auf die spielereigene Squadron festgelegt. Voraussetzung dafür ist natürlich das die Squadron genauso heißt wie die dazugehörige Spielerfraktion *(Minor Faction)*. Sollte dies nicht der Fall sein zeigt das Plugin einfach nur die Standarddaten an ohne besondere Hinweise auf eine Fraktion.
+
+#### Da es in meinen Augen keinen Sinn macht das die eigene Squadron anders heißt als die dazugehörige Spielerfraktion werde ich auch nichts weiter an diesem Plugin-Verhalten ändern!
+
+
 ![In-game Screenshot](edmc_plugins_gpl.png)
 
 ![In-game Screenshot](edmc_plugins_dark.png) ![In-game Screenshot](edmc_plugins_gpl_2.png)
@@ -21,8 +26,8 @@ Nach dem starten des EDMC ist das Plugin sofort einsatzbereit, es ist bereits ko
 ## Anzeigen
 
 Je nach gewählten Optionen kann das Plugin folgendes anzeigen:
-- Den Einfluß der Fraktion "German Pilot Lounge"
-- Die eigene Reputation bei der Fraktion "German Pilot Lounge"
+- Den Einfluß der Fraktion der die eigene Squadron zugehörig ist
+- Die eigene Reputation bei der Fraktion welche der Squadron zugehörig ist
 - Sämtliche Fraktionen welche im aktuellen System vertreten sind mitsamt des aktuellen Status und dem Anteil an Einfluß in Prozent
 
 
@@ -39,19 +44,19 @@ Je nach gewählten Optionen kann das Plugin folgendes anzeigen:
 - schaltet die Anzeige der genannten Fraktion ein bzw aus
 - - da diese Fraktion in jedem System vertreten ist und eigentlich immer 0% Einfluß hat ist dies normalerweise nicht notwendig, nur wer es möchte der kann es sich damit aktivieren
 
-2. Zeige zusätzlichen Einfluß der GPL
-- zeigt den Einfluß der GPL-Fraktion in einer zusätzlichen zeile an
+2. Zeige zusätzlichen Einfluß der eigenen Fraktion
+- zeigt den Einfluß der eigenen Fraktion in einer zusätzlichen Zeile an
 - dient eigentlich dafür den Einfluß anzuzeigen auch wenn andere Fraktionen (Option 1) deaktiviert sind
 
 2. A. Integriere Hinweise in der Fraktionsliste
 - markiert die Fraktion 'German Pilot Lounge' innerhalb der Fraktionsliste und entfernt den extra Eintrag oberhalb der Fraktionsliste
 
 3. Zeige eigene Reputation
-- zeigt den Spielereigenen Ruf bei der GPL-Fraktion an
-- der eigene Ruf wird nur angezeigt wenn die GPL im aktuellen System vertreten ist, andernfalls wird es ausgeblendet
+- zeigt den Spielereigenen Ruf bei der eigenen Fraktion an
+- der eigene Ruf wird nur angezeigt wenn die eigene Fraktion im aktuellen System vertreten ist, andernfalls wird es ausgeblendet
 
 3. A. Zeige eigene Reputation bei allen Fraktionen
-- zeigt die Reputationswerte für alle im System vorhandenen Fraktionen an, nicht nur die der GPL, die zusätzliche Zeile oberhalb der Fraktionsliste wird entfernt und es wird eine zusätzliche Spalte eingeblendet mit den Rufpunkten der einzelnen Fraktionen
+- zeigt die Reputationswerte für alle im System vorhandenen Fraktionen an, nicht nur die der eigenen Fraktion, die zusätzliche Zeile oberhalb der Fraktionsliste wird entfernt und es wird eine zusätzliche Spalte eingeblendet mit den Rufpunkten der einzelnen Fraktionen
 
 4. Zeige farbige Prozentwerte
 - die Prozentwerte des Einflußes werden zusätzlich coloriert dargestellt wenn diese Option aktiviert ist, dies gilt für alle angezeigten Prozentwerte

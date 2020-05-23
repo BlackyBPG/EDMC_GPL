@@ -30,12 +30,12 @@
 "PublicHoliday" = "Gesetzlicher Feiertag";
 "TerroristAttack" = "Terroranschlag";
 
-"GPL Influence:" = "Einfluss der GPL:";
-"Own GPL-Reputation:" = "Eigene GPL-Reputation:";
+"Faction Influence:" = "Fraktions-Einfluss:";
+"Faction Reputation:" = "Fraktions-Reputation:";
 
 "Show other System Factions" = "Zeige andere System Fraktionen";
 "Show 'Pilots' Federation Local Branch'-Faction in Factionlist" = "Zeige Fraktion 'Pilots' Federation Local Branch' in Fraktionsansicht";
-"Show Extra influence for GPL-Faction" = "Zeige zusätzlich Einfluß der GPL";
+"Show Extra influence for Own-Faction" = "Zeige zusätzlich Einfluß der eigenen Fraktion";
 "Integrate notice in Factionlist" = "Integriere Hinweis in der Fraktionsliste";
 "Show own reputation" = "Zeige eigene Reputation";
 "Show reputation for all factions" = "Zeige eigene Reputation bei allen Fraktionen";

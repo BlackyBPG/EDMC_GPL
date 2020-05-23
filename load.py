@@ -22,7 +22,7 @@ this.showgpl = tk.IntVar(value=1)
 this.showrep = tk.IntVar(value=1)
 this.showpil = tk.IntVar(value=0)
 
-APP_VERSION = "20.05.04_b1813"
+APP_VERSION = "20.05.23_b1324"
 
 COLOR_R_RED = [64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,67,70,73,76,79,82,85,88,91,94,97,100,103,106,109,112,115,118,121,124,127,130,133,136,139,142,145,148,151,154,157,160,163,166,169,172,175,178,181,184,187,190,193,196,199,202,205,208,211,214,214,214,215,215,216,216,216,217,217,218,218,218,219,219,220,220,220,221,221,222,222,222,223,223,224,224,224,225,225,226,226,226,227,227,228,228,228,229,229,230,230,230,231,231,232,232,232,233,233,234,234,234,235,235,236,236,236,237,237,238,238,238,239,239,240,240,240,241,241,242,242,242,243,243,244,244,244,245,245,246,246,246,247,247,248,248,248,249,249,250,250,250,251,251,252,252,252,253,253,254]
 COLOR_R_GREEN = [255,254,254,253,253,252,252,251,251,250,250,249,249,248,248,247,247,246,246,245,245,244,244,243,243,242,242,241,241,240,240,239,239,238,238,237,237,236,236,235,235,234,234,233,233,232,232,231,231,230,230,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,251,247,243,239,235,234,232,230,229,227,225,224,222,220,219,217,215,214,212,210,209,207,205,204,202,200,199,197,195,194,192,190,189,187,185,184,182,180,179,177,175,174,172,170,169,167,165,164,162,160,159,157,155,154,152,150,149,147,145,144,142,140,139,137,135,134,132,130,129,127,125,124,122,120,119,117,115,114,112,110,109,107,105,104,102,100,99,97,95,94,92,90,89,87,85,84,82,80,79,77,75,74,72,70,69]
@@ -43,7 +43,6 @@ DEFAULT_SHOWCOL = 1
 DEFAULT_GPLINT = 0
 DEFAULT_REPALL = 0
 NAME_PIL = "Pilots' Federation Local Branch"
-NAME_GPL = "German Pilot Lounge"
 NAME_GPL_SHORT = "GPL"
 NAME_REPUTATION = "Reputation"
 
@@ -209,12 +208,12 @@ class Gpl(object):
                     self.widget_State[x-xd].grid(row=x-xd, column=1, sticky=tk.E+tk.W, padx=10)
                     if (self.systemfactionmode[x] == NAME_REPUTATION and showrep == 1) or (self.systemfactionmode[x] == NAME_GPL_SHORT and showgpl == 1):
                         self.widget_Name[x-xd]["foreground"] = COLOR_NORM[self.appdesign+2]
-                    elif self.systemfaction[x] == NAME_GPL and gplint == 1 and self.showgpl == 1:
+                    elif (self.systemfactionmode[x] == "NoneSQ" or self.systemfactionmode[x] == "SYSSQ") and gplint == 1 and self.showgpl == 1:
                         self.widget_Name[x-xd]["foreground"] = COLOR_NORM[self.appdesign+2]
                     else:
                         self.widget_Name[x-xd]["foreground"] = COLOR_NORM[self.appdesign]
 
-                    if self.systemfactionmode[x] == "SYS":
+                    if self.systemfactionmode[x] == "SYS" or self.systemfactionmode[x] == "SYSSQ":
                         self.widget_Name[x-xd].after(0, self.widget_Name[x-xd].config, {"text": "! " + self.systemfaction[x]})
                     else:
                         self.widget_Name[x-xd].after(0, self.widget_Name[x-xd].config, {"text": self.systemfaction[x]})
@@ -361,7 +360,7 @@ def plugin_prefs(parent, cmdr, is_beta):
     this.factionbutton.grid(padx=10, pady = 3, sticky=tk.W)
     this.pilotbutton = nb.Checkbutton(frame, text=_("Show 'Pilots' Federation Local Branch'-Faction in Factionlist").encode('utf-8'), variable=this.showpil, onvalue = 1, offvalue = 0, command=prefs_normal_changed)
     this.pilotbutton.grid(padx=25, pady = 1, sticky=tk.W)
-    this.extragplbutton = nb.Checkbutton(frame, text=_("Show Extra influence for GPL-Faction").encode('utf-8'), variable=this.showgpl, onvalue = 1, offvalue = 0, command=prefs_faction_changed)
+    this.extragplbutton = nb.Checkbutton(frame, text=_("Show Extra influence for Own-Faction").encode('utf-8'), variable=this.showgpl, onvalue = 1, offvalue = 0, command=prefs_faction_changed)
     this.extragplbutton.grid(padx=10, pady = 3, sticky=tk.W)
     this.integratebutton = nb.Checkbutton(frame, text=_("Integrate notice in Factionlist").encode('utf-8'), variable=this.gplint, onvalue = 1, offvalue = 0, command=prefs_normal_changed)
     this.integratebutton.grid(padx=25, pady = 1, sticky=tk.W)
@@ -553,15 +552,19 @@ def journal_entry(cmdr, is_beta, system, station, entry, state):
                 for i in range(len(fact)):
                     faction = dict(fact[i])
                     msgrepu = faction["MyReputation"]
-                    if faction["Name"] == NAME_GPL:
+                    if "SquadronFaction" in faction:
                         msginflu = faction["Influence"] * 100
-                        this.gpl.data_systemfaction(i,_("GPL Influence:").encode('utf-8'),msginflu,"",NAME_GPL_SHORT,msgrepu)
-                        this.gpl.data_systemfaction(i,_("Own GPL-Reputation:").encode('utf-8'),msgrepu,"",NAME_REPUTATION,msgrepu)
+                        this.gpl.data_systemfaction(i,_("Faction Influence:").encode('utf-8'),msginflu,"",NAME_GPL_SHORT,msgrepu)
+                        this.gpl.data_systemfaction(i,_("Faction Reputation:").encode('utf-8'),msgrepu,"",NAME_REPUTATION,msgrepu)
 
                     mode = "None"
                     if sysfac != None:
                         if sysfac["Name"] == faction["Name"]:
                             mode = "SYS"
+
+                        if "SquadronFaction" in faction:
+                            mode = mode + "SQ"
+
                     if faction["FactionState"] == "None":
                         this.gpl.data_systemfaction(i,faction["Name"],faction["Influence"] * 100,"",mode,msgrepu)
                     else:
