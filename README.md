@@ -4,7 +4,8 @@ Das ist ein einfaches Plugin für den [ED MarketConnector](https://github.com/Mar
 
 Ab der Version **20.05.23_b1324** ist es nicht nur auf die GPL *(German Pilot Lounge)* beschränkt sondern ist auf die spielereigene Squadron festgelegt. Voraussetzung dafür ist natürlich das die Squadron genauso heißt wie die dazugehörige Spielerfraktion *(Minor Faction)*. Sollte dies nicht der Fall sein zeigt das Plugin einfach nur die Standarddaten an ohne besondere Hinweise auf eine Fraktion.
 
-#### Da es in meinen Augen keinen Sinn macht das die eigene Squadron anders heißt als die dazugehörige Spielerfraktion werde ich auch nichts weiter an diesem Plugin-Verhalten ändern!
+### Da es in meinen Augen keinen Sinn macht das die eigene Squadron anders heißt als die dazugehörige Spielerfraktion werde ich auch nichts weiter an diesem Plugin-Verhalten ändern!
+
 
 
 ![In-game Screenshot](edmc_plugins_gpl.png)
@@ -62,8 +63,8 @@ Je nach gewählten Optionen kann das Plugin folgendes anzeigen:
 - die Prozentwerte des Einflußes werden zusätzlich coloriert dargestellt wenn diese Option aktiviert ist, dies gilt für alle angezeigten Prozentwerte
 
 
-5. Dunkles Design
-- das Plugin erkennt nicht automatisch welches Design (Theme) man in EDMC aktiviert hat, weshalb es eine Optionsseite mit der Möglichkeit der Designwahl für das Plugin gibt.
+5. ~~Dunkles Design~~
+- ~~das Plugin erkennt nicht automatisch welches Design (Theme) man in EDMC aktiviert hat, weshalb es eine Optionsseite mit der Möglichkeit der Designwahl für das Plugin gibt.~~
 
 
 ## Weiteres
