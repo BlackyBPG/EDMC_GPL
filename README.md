@@ -34,7 +34,7 @@ Je nach gewählten Optionen kann das Plugin folgendes anzeigen:
 
 ## Optionen
 
-![EDMC Optionen](edmc_options_gpl.png)
+![EDMC Optionen](edmc_options_gpl_new.png)
 
 ### Optionen erklärt:
 
