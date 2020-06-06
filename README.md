@@ -63,8 +63,8 @@ Je nach gewählten Optionen kann das Plugin folgendes anzeigen:
 - die Prozentwerte des Einflußes werden zusätzlich coloriert dargestellt wenn diese Option aktiviert ist, dies gilt für alle angezeigten Prozentwerte
 
 
-5. Dunkles Design
-- das Plugin erkennt nicht automatisch welches Design (Theme) man in EDMC aktiviert hat, weshalb es eine Optionsseite mit der Möglichkeit der Designwahl für das Plugin gibt.
+5. ~~Dunkles Design~~
+- ~~das Plugin erkennt nicht automatisch welches Design (Theme) man in EDMC aktiviert hat, weshalb es eine Optionsseite mit der Möglichkeit der Designwahl für das Plugin gibt.~~
 
 
 ## Weiteres
