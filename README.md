@@ -1,6 +1,6 @@
 # GPL EDMC Plugin
 
-Das ist ein einfaches Plugin für den [ED MarketConnector](https://github.com/Marginal/EDMarketConnector/wiki) welches ursprünglich einzig dem Zwecke diente den Einfluß der "German Pilot Lounge" sowie der eigenen Reputation (Ruf) bei dieser Fraktion anzuzeigen. Mittlwerweile habe ich dieses Plugin jedoch ein wenig erweitert ...
+Das ist ein einfaches Plugin für den [ED MarketConnector](https://github.com/EDCD/EDMarketConnector/wiki) welches ursprünglich einzig dem Zwecke diente den Einfluß der "German Pilot Lounge" sowie der eigenen Reputation (Ruf) bei dieser Fraktion anzuzeigen. Mittlwerweile habe ich dieses Plugin jedoch ein wenig erweitert ...
 
 Ab der Version **20.05.23_b1324** ist es nicht nur auf die GPL *(German Pilot Lounge)* beschränkt sondern ist auf die spielereigene Squadron festgelegt. Voraussetzung dafür ist natürlich das die Squadron genauso heißt wie die dazugehörige Spielerfraktion *(Minor Faction)*. Sollte dies nicht der Fall sein zeigt das Plugin einfach nur die Standarddaten an ohne besondere Hinweise auf eine Fraktion.
 
@@ -21,7 +21,7 @@ So wie auch alle anderen EDMC-Plugins wird der Ordner aus dem heruntergeladenen 
 ```
 $AppPath$\EDMarketConnector\plugins\GPL
 ```
-Nach dem starten des EDMC ist das Plugin sofort einsatzbereit, es ist bereits kompatibel mit der neuen BETA-Version des EDMC 3.50 beta0, funktioniert jedoch auch in der Version 3.43 des EDMC.
+Nach dem starten des EDMC ist das Plugin sofort einsatzbereit, es ist bereits kompatibel mit der neuen BETA-Version des EDMC 3.99.1.0 (4.0.0.0 beta1), funktioniert jedoch auch in der Version 3.46 des EDMC.
 
 
 ## Anzeigen
