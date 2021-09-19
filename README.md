@@ -29,6 +29,8 @@ Je nach gewählten Optionen kann das Plugin folgendes anzeigen:
 - Die eigene Reputation bei der Fraktion welche der Squadron zugehörig ist
 - Sämtliche Fraktionen welche im aktuellen System vertreten sind mitsamt des aktuellen Status und dem Anteil an Einfluß in Prozent
 
+Zusätzlich zeigt das Plugin den Sicherheitsstatus des Systems an sowie die Fraktionszugehörigkeit.
+
 
 ## Optionen
 

@@ -33,7 +33,7 @@ this.lastTime = 0
 this.lastCheckTime = 0
 this.dataLoaded = False
 
-APP_VERSION = "20.07.05_b1725"
+APP_VERSION = "21.09.09_b0140"
 
 COLOR_R_RED = [64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,67,70,73,76,79,82,85,88,91,94,97,100,103,106,109,112,115,118,121,124,127,130,133,136,139,142,145,148,151,154,157,160,163,166,169,172,175,178,181,184,187,190,193,196,199,202,205,208,211,214,214,214,215,215,216,216,216,217,217,218,218,218,219,219,220,220,220,221,221,222,222,222,223,223,224,224,224,225,225,226,226,226,227,227,228,228,228,229,229,230,230,230,231,231,232,232,232,233,233,234,234,234,235,235,236,236,236,237,237,238,238,238,239,239,240,240,240,241,241,242,242,242,243,243,244,244,244,245,245,246,246,246,247,247,248,248,248,249,249,250,250,250,251,251,252,252,252,253,253,254]
 COLOR_R_GREEN = [255,254,254,253,253,252,252,251,251,250,250,249,249,248,248,247,247,246,246,245,245,244,244,243,243,242,242,241,241,240,240,239,239,238,238,237,237,236,236,235,235,234,234,233,233,232,232,231,231,230,230,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,251,247,243,239,235,234,232,230,229,227,225,224,222,220,219,217,215,214,212,210,209,207,205,204,202,200,199,197,195,194,192,190,189,187,185,184,182,180,179,177,175,174,172,170,169,167,165,164,162,160,159,157,155,154,152,150,149,147,145,144,142,140,139,137,135,134,132,130,129,127,125,124,122,120,119,117,115,114,112,110,109,107,105,104,102,100,99,97,95,94,92,90,89,87,85,84,82,80,79,77,75,74,72,70,69]
@@ -70,6 +70,8 @@ class Gpl(object):
     """
     The main class for the gpl plugin
     """
+    widget_System = []
+    widget_Security = []
     widget_Name = []
     widget_State = []
     widget_Desc = []
@@ -82,6 +84,8 @@ class Gpl(object):
     influence = 0
     oldlen = 0
     systemsystem = ""
+    systemgov = ""
+    systemsecurity = ""
     systemfaction = []
     systemfactioninflu = []
     systemfactionstate = []
@@ -144,14 +148,18 @@ class Gpl(object):
         self.influence = 0
         self.oldlen = 0
         self.systemsystem = ""
+        self.systemgov = ""
+        self.systemsecurity = ""
         self.systemfaction = []
         self.systemfactioninflu = []
         self.systemfactionmode = []
         self.systemfactionreputation = []
         self.initializeMe = True
 
-    def data_systemfaction(self, index, sysfaction, influence, state, mode, reputation, system):
+    def data_systemfaction(self, index, sysfaction, influence, state, mode, reputation, system, gov, secure):
         self.systemsystem = system
+        self.systemgov = gov
+        self.systemsecurity = secure
         if mode == "RESET":
             self.systemfaction = []
             self.systemfactioninflu = []
@@ -243,6 +251,8 @@ class Gpl(object):
         xd = 0
         if len(self.systemfaction) > 0:
             self.frame.grid()
+            self.widget_System[0].after(0, self.widget_System[0].config, {"text": ">> " + self.systemgov})
+            self.widget_Security[0].after(0, self.widget_Security[0].config, {"text": self.systemsecurity + " <<"})
             self.oldlen = len(self.systemfaction)
             gplint = self.gplint
             repall = self.repall
@@ -268,8 +278,8 @@ class Gpl(object):
                 elif self.showoth == 0 and not ((self.systemfactionmode[x] == NAME_REPUTATION and showrep == 1) or (self.systemfactionmode[x] == NAME_GPL_SHORT and showgpl == 1)):
                     xd = xd + 1
                 else:
-                    self.widget_Name[x-xd].grid(row=x-xd, column=0, sticky=tk.W)
-                    self.widget_State[x-xd].grid(row=x-xd, column=1, sticky=tk.E+tk.W, padx=10)
+                    self.widget_Name[x-xd].grid(row=x-xd+1, column=0, sticky=tk.W)
+                    self.widget_State[x-xd].grid(row=x-xd+1, column=1, sticky=tk.E+tk.W, padx=10)
                     if (self.systemfactionmode[x] == NAME_REPUTATION and showrep == 1) or (self.systemfactionmode[x] == NAME_GPL_SHORT and showgpl == 1):
                         self.widget_Name[x-xd]["foreground"] = COLOR_NORM[self.appdesign+3]
                     elif (self.systemfactionmode[x] == "NoneSQ" or self.systemfactionmode[x] == "SYSSQ") and gplint == 1 and self.showgpl == 1:
@@ -295,7 +305,7 @@ class Gpl(object):
                     self.widget_State[x-xd].after(0, self.widget_State[x-xd].config, {"text": self.systemfactionstate[x]})
 
                     msg = "{}".format(Locale.stringFromNumber(self.systemfactioninflu[x], 3))
-                    self.widget_Desc[x-xd].grid(row=x-xd, column=3, sticky=tk.E)
+                    self.widget_Desc[x-xd].grid(row=x-xd+1, column=3, sticky=tk.E)
                     if self.showcol == 1:
                         red = COLOR_I_RED[int(100 - self.systemfactioninflu[x])]
                         green = COLOR_I_GREEN[int(100 - self.systemfactioninflu[x])]
@@ -311,7 +321,7 @@ class Gpl(object):
                             self.widget_ColorA[x-xd].grid_forget()
                         else:
                             self.widget_Desc[x-xd]["foreground"] = COLOR_NORM[self.appdesign]
-                            self.widget_ColorA[x-xd].grid(row=x-xd, column=2, sticky=tk.W)
+                            self.widget_ColorA[x-xd].grid(row=x-xd+1, column=2, sticky=tk.W)
                             self.widget_ColorA[x-xd]["foreground"] = hexrgb
                             self.widget_ColorA[x-xd]["background"] = hexrgb
                     else:
@@ -319,11 +329,11 @@ class Gpl(object):
 
                     self.widget_Desc[x-xd].after(0, self.widget_Desc[x-xd].config, {"text": msg})
 
-                    self.widget_Perc[x-xd].grid(row=x-xd, column=4, sticky=tk.W)
+                    self.widget_Perc[x-xd].grid(row=x-xd+1, column=4, sticky=tk.W)
 
                     if repall == 1 and self.showrep == 1 and not ((self.systemfactionmode[x] == NAME_REPUTATION and showrep == 1) or (self.systemfactionmode[x] == NAME_GPL_SHORT and showgpl == 1)):
                         msg = "{}".format(Locale.stringFromNumber(self.systemfactionreputation[x], 3))
-                        self.widget_Rep[x-xd].grid(row=x-xd, column=6, sticky=tk.E)
+                        self.widget_Rep[x-xd].grid(row=x-xd+1, column=6, sticky=tk.E)
                         red = COLOR_R_RED[int(100 - self.systemfactionreputation[x])]
                         green = COLOR_R_GREEN[int(100 - self.systemfactionreputation[x])]
                         blue = COLOR_R_BLUE[int(100 - self.systemfactionreputation[x])]
@@ -335,13 +345,13 @@ class Gpl(object):
                                 self.widget_Rep[x-xd]["foreground"] = hexrgb
                                 self.widget_ColorB[x-xd].grid_forget()
                             else:
-                                self.widget_ColorB[x-xd].grid(row=x-xd, column=5, sticky=tk.W)
+                                self.widget_ColorB[x-xd].grid(row=x-xd+1, column=5, sticky=tk.W)
                                 self.widget_ColorB[x-xd]["foreground"] = hexrgb
                                 self.widget_ColorB[x-xd]["background"] = hexrgb
 
                         self.widget_Rep[x-xd].after(0, self.widget_Rep[x-xd].config, {"text": msg})
 
-                        self.widget_PercRep[x-xd].grid(row=x-xd, column=7, sticky=tk.W)
+                        self.widget_PercRep[x-xd].grid(row=x-xd+1, column=7, sticky=tk.W)
                     else:
                         self.widget_Rep[x-xd].grid_forget()
                         self.widget_PercRep[x-xd].grid_forget()
@@ -534,8 +544,17 @@ def plugin_app(parent):
 
     frame = tk.Frame(parent)
 
+    objectsystem = tk.Label(frame, text=">> ", justify=tk.LEFT, foreground="#80FFFF")
+    objectsystem.grid(row=0, column=0, sticky=tk.W)
+    gpl.widget_System.append(objectsystem)
+
+    objectsecurity = tk.Label(frame, text=" <<", justify=tk.RIGHT, foreground="#FF8000")
+    objectsecurity.grid(row=0, column=1, columnspan=7, sticky=tk.E)
+    gpl.widget_Security.append(objectsecurity)
+
     i = 0
     while i < MAX_FACTIONS:
+        i = i + 1
         objectname = tk.Label(frame, text="", justify=tk.LEFT, foreground="#80FFFF")
         objectname.grid(row=i, column=0, sticky=tk.W)
         gpl.widget_Name.append(objectname)
@@ -568,9 +587,7 @@ def plugin_app(parent):
         objectpercrep.grid(row=i, column=7, sticky=tk.W)
         gpl.widget_PercRep.append(objectpercrep)
 
-        i = i + 1
-    
-    
+
     frame.columnconfigure(0, weight=3)
     frame.columnconfigure(1, weight=3)
     frame.columnconfigure(2, weight=0)
@@ -605,7 +622,15 @@ def journal_entry(cmdr, is_beta, system, station, entry, state):
             this.gpl.initializeMe = False
 
         if "FSDJump" in entry["event"] or "Location" in entry["event"]:
-            this.gpl.data_systemfaction(0,"","","","RESET",0,entry["StarSystem"])
+            gov = ""
+            secure = ""
+            if "SystemGovernment_Localised" in entry:
+                gov = entry["SystemGovernment_Localised"]
+
+            if "SystemSecurity_Localised" in entry:
+                secure = entry["SystemSecurity_Localised"]
+
+            this.gpl.data_systemfaction(0,"","","","RESET",0,entry["StarSystem"],gov,secure)
             fact = "[]"
             msginflu = 0
             msgrepu = 0
@@ -621,8 +646,8 @@ def journal_entry(cmdr, is_beta, system, station, entry, state):
                     msgrepu = faction["MyReputation"]
                     if "SquadronFaction" in faction:
                         msginflu = faction["Influence"] * 100
-                        this.gpl.data_systemfaction(i,_("Faction Influence:").encode('iso-8859-1'),msginflu,"",NAME_GPL_SHORT,msgrepu,entry["StarSystem"])
-                        this.gpl.data_systemfaction(i,_("Faction Reputation:").encode('iso-8859-1'),msgrepu,"",NAME_REPUTATION,msgrepu,entry["StarSystem"])
+                        this.gpl.data_systemfaction(i,_("Faction Influence:").encode('iso-8859-1'),msginflu,"",NAME_GPL_SHORT,msgrepu,entry["StarSystem"],gov,secure)
+                        this.gpl.data_systemfaction(i,_("Faction Reputation:").encode('iso-8859-1'),msgrepu,"",NAME_REPUTATION,msgrepu,entry["StarSystem"],gov,secure)
 
                     mode = "None"
                     if sysfac != None:
@@ -634,12 +659,12 @@ def journal_entry(cmdr, is_beta, system, station, entry, state):
                             mode = mode + "SQ"
 
                     if faction["FactionState"] == "None":
-                        this.gpl.data_systemfaction(i,faction["Name"],faction["Influence"] * 100,"",mode,msgrepu,entry["StarSystem"])
+                        this.gpl.data_systemfaction(i,faction["Name"],faction["Influence"] * 100,"",mode,msgrepu,entry["StarSystem"],gov,secure)
                     else:
                         factionstatelng = _(faction["FactionState"]).encode('iso-8859-1')
-                        this.gpl.data_systemfaction(i,faction["Name"],faction["Influence"] * 100,factionstatelng,mode,msgrepu,entry["StarSystem"])
+                        this.gpl.data_systemfaction(i,faction["Name"],faction["Influence"] * 100,factionstatelng,mode,msgrepu,entry["StarSystem"],gov,secure)
 
                 if sysfacadd == False:
-                    this.gpl.data_systemfaction(i,sysfac["Name"],0,"","SYS",0,entry["StarSystem"])
+                    this.gpl.data_systemfaction(i,sysfac["Name"],0,"","SYS",0,entry["StarSystem"],gov,secure)
 
             this.gpl.update_window()
