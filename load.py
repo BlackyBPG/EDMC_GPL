@@ -27,13 +27,13 @@ this.showrep = tk.IntVar(value=1)
 this.showpil = tk.IntVar(value=0)
 
 # this.eddnstations = "https://eddb.io/archive/v6/stations.json"
-this.eddnfactions = "https://eddb.io/archive/v6/factions.json"
-this.eddnsystemsp = "https://eddb.io/archive/v6/systems_populated.json"
+# this.eddnfactions = "https://eddb.io/archive/v6/factions.json"
+# this.eddnsystemsp = "https://eddb.io/archive/v6/systems_populated.json"
 this.lastTime = 0
 this.lastCheckTime = 0
 this.dataLoaded = False
 
-APP_VERSION = "21.09.09_b0140"
+APP_VERSION = "23.04.24_b2308"
 
 COLOR_R_RED = [64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,67,70,73,76,79,82,85,88,91,94,97,100,103,106,109,112,115,118,121,124,127,130,133,136,139,142,145,148,151,154,157,160,163,166,169,172,175,178,181,184,187,190,193,196,199,202,205,208,211,214,214,214,215,215,216,216,216,217,217,218,218,218,219,219,220,220,220,221,221,222,222,222,223,223,224,224,224,225,225,226,226,226,227,227,228,228,228,229,229,230,230,230,231,231,232,232,232,233,233,234,234,234,235,235,236,236,236,237,237,238,238,238,239,239,240,240,240,241,241,242,242,242,243,243,244,244,244,245,245,246,246,246,247,247,248,248,248,249,249,250,250,250,251,251,252,252,252,253,253,254]
 COLOR_R_GREEN = [255,254,254,253,253,252,252,251,251,250,250,249,249,248,248,247,247,246,246,245,245,244,244,243,243,242,242,241,241,240,240,239,239,238,238,237,237,236,236,235,235,234,234,233,233,232,232,231,231,230,230,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,251,247,243,239,235,234,232,230,229,227,225,224,222,220,219,217,215,214,212,210,209,207,205,204,202,200,199,197,195,194,192,190,189,187,185,184,182,180,179,177,175,174,172,170,169,167,165,164,162,160,159,157,155,154,152,150,149,147,145,144,142,140,139,137,135,134,132,130,129,127,125,124,122,120,119,117,115,114,112,110,109,107,105,104,102,100,99,97,95,94,92,90,89,87,85,84,82,80,79,77,75,74,72,70,69]
@@ -106,42 +106,42 @@ class Gpl(object):
 
     def load(self):
         if config.get(CFG_GPL_INT):
-            self.gplint = int(config.get(CFG_GPL_INT))
+            self.gplint = int(config.get_str(CFG_GPL_INT))
         else:
            self.gplint = DEFAULT_GPLINT
 
         if config.get(CFG_GPL_ALL):
-            self.repall = int(config.get(CFG_GPL_ALL))
+            self.repall = int(config.get_str(CFG_GPL_ALL))
         else:
            self.repall = DEFAULT_REPALL
 
-        if config.getint(CFG_DESIGN):
-            self.appdesign = config.getint(CFG_DESIGN)
+        if config.get_int(CFG_DESIGN):
+            self.appdesign = config.get_int(CFG_DESIGN)
         else:
            self.appdesign = 0
 
         if config.get(CFG_GPL_SHOW):
-            self.showgpl = int(config.get(CFG_GPL_SHOW))
+            self.showgpl = int(config.get_str(CFG_GPL_SHOW))
         else:
            self.showgpl = DEFAULT_SHOWGPL
 
         if config.get(CFG_GPL_REP):
-            self.showrep = int(config.get(CFG_GPL_REP))
+            self.showrep = int(config.get_str(CFG_GPL_REP))
         else:
             self.showrep = DEFAULT_SHOWREP
 
         if config.get(CFG_GPL_PIL):
-            self.showpil = int(config.get(CFG_GPL_PIL))
+            self.showpil = int(config.get_str(CFG_GPL_PIL))
         else:
             self.showpil = DEFAULT_SHOWPIL
 
         if config.get(CFG_GPL_OTH):
-            self.showoth = int(config.get(CFG_GPL_OTH))
+            self.showoth = int(config.get_str(CFG_GPL_OTH))
         else:
             self.showoth = DEFAULT_SHOWOTH
 
         if config.get(CFG_GPL_COL):
-            self.showcol = int(config.get(CFG_GPL_COL))
+            self.showcol = int(config.get_str(CFG_GPL_COL))
         else:
             self.showcol = DEFAULT_SHOWCOL
 
@@ -206,45 +206,11 @@ class Gpl(object):
             # check now
             this.lastCheckTime = time.time()
             this.dataLoaded = False
-            self.requestUpdates()
         elif nextcheck == 0:
             if nextstamp > 86400:
                 # checknow
                 this.lastCheckTime = time.time()
                 this.dataLoaded = False
-                self.requestUpdates()
-
-    def requestUpdates(self):
-        print("GPL: Download new data ...")
-        this.lastTime = time.time()
-        responseF = requests.get(this.eddnfactions)
-        self.resFactions = responseF.json()
-        print("GPL: Download factions -> %s" % (time.time()-this.lastTime))
-        this.lastTime = time.time()
-        responseP = requests.get(this.eddnsystemsp)
-        self.resSystemsp = responseP.json()
-        print("GPL: Download system -> %s" % (time.time()-this.lastTime))
-        this.lastTime = time.time()
-        this.dataLoaded = True
-        # responseS = requests.get(this.eddnstations)
-        # self.resStations = responseS.json()
-        # print("GPL: Download stations -> %s" % (time.time()-this.lastTime))
-        # this.lastTime = time.time()
-
-    def getFactionNative(self,faction,system):
-        if this.dataLoaded == False:
-            return 0
-        homeId = [obj for obj in list(self.resFactions) if obj["name"] == str(faction)][0]["home_system_id"]
-        sysId = [obj for obj in list(self.resSystemsp) if obj["name"] == str(system)][0]["id"]
-        native = 0
-        if homeId == sysId:
-            native = 1
-        return native
-
-    def getFactionPlayer(self,faction):
-        if this.dataLoaded == False:
-            return 0
-        return [obj for obj in list(self.resFactions) if obj["name"] == str(faction)][0]["is_player_faction"]
 
     def update_systemfactions(self):
         x = 0
@@ -289,8 +255,8 @@ class Gpl(object):
 
                     faction = self.systemfaction[x]
                     system = self.systemsystem
-                    native = self.getFactionNative(faction,system)
-                    player = self.getFactionPlayer(faction)
+                    native = 0
+                    player = 0
                     if native == 1 or player == 1:
                         faction = "%s " % faction
                         if native == 1:
@@ -518,7 +484,7 @@ def prefs_changed(cmdr, is_beta):
     gpl.showcol = int(this.showcol.get())
     gpl.gplint = int(this.gplint.get())
     gpl.repall = int(this.repall.get())
-    gpl.appdesign = config.getint(CFG_DESIGN)
+    gpl.appdesign = config.get_int(CFG_DESIGN)
     config.set(CFG_GPL_SHOW, str(gpl.showgpl))
     config.set(CFG_GPL_REP, str(gpl.showrep))
     config.set(CFG_GPL_PIL, str(gpl.showpil))
