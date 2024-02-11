@@ -33,7 +33,7 @@ this.lastTime = 0
 this.lastCheckTime = 0
 this.dataLoaded = False
 
-APP_VERSION = "24.02.11_b2144"
+APP_VERSION = "24.02.11_b2347"
 
 COLOR_R_RED = [64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,67,70,73,76,79,82,85,88,91,94,97,100,103,106,109,112,115,118,121,124,127,130,133,136,139,142,145,148,151,154,157,160,163,166,169,172,175,178,181,184,187,190,193,196,199,202,205,208,211,214,214,214,215,215,216,216,216,217,217,218,218,218,219,219,220,220,220,221,221,222,222,222,223,223,224,224,224,225,225,226,226,226,227,227,228,228,228,229,229,230,230,230,231,231,232,232,232,233,233,234,234,234,235,235,236,236,236,237,237,238,238,238,239,239,240,240,240,241,241,242,242,242,243,243,244,244,244,245,245,246,246,246,247,247,248,248,248,249,249,250,250,250,251,251,252,252,252,253,253,254]
 COLOR_R_GREEN = [255,254,254,253,253,252,252,251,251,250,250,249,249,248,248,247,247,246,246,245,245,244,244,243,243,242,242,241,241,240,240,239,239,238,238,237,237,236,236,235,235,234,234,233,233,232,232,231,231,230,230,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,251,247,243,239,235,234,232,230,229,227,225,224,222,220,219,217,215,214,212,210,209,207,205,204,202,200,199,197,195,194,192,190,189,187,185,184,182,180,179,177,175,174,172,170,169,167,165,164,162,160,159,157,155,154,152,150,149,147,145,144,142,140,139,137,135,134,132,130,129,127,125,124,122,120,119,117,115,114,112,110,109,107,105,104,102,100,99,97,95,94,92,90,89,87,85,84,82,80,79,77,75,74,72,70,69]
@@ -366,38 +366,38 @@ class Gpl(object):
 
 
 def plugin_prefs(parent, cmdr, is_beta):
-    if config.get(CFG_GPL_SHOW) != None:
-        this.showgpl = tk.IntVar(value=config.get(CFG_GPL_SHOW))
+    if config.get_str(CFG_GPL_SHOW) != None:
+        this.showgpl = tk.IntVar(value=config.get_str(CFG_GPL_SHOW))
     else:
         this.showgpl = tk.IntVar(value=DEFAULT_SHOWGPL)
 
-    if config.get(CFG_GPL_REP) != None:
-        this.showrep = tk.IntVar(value=config.get(CFG_GPL_REP))
+    if config.get_str(CFG_GPL_REP) != None:
+        this.showrep = tk.IntVar(value=config.get_str(CFG_GPL_REP))
     else:
         this.showrep = tk.IntVar(value=DEFAULT_SHOWREP)
 
-    if config.get(CFG_GPL_PIL) != None:
-        this.showpil = tk.IntVar(value=config.get(CFG_GPL_PIL))
+    if config.get_str(CFG_GPL_PIL) != None:
+        this.showpil = tk.IntVar(value=config.get_str(CFG_GPL_PIL))
     else:
         this.showpil = tk.IntVar(value=DEFAULT_SHOWPIL)
 
-    if config.get(CFG_GPL_OTH) != None:
-        this.showoth = tk.IntVar(value=config.get(CFG_GPL_OTH))
+    if config.get_str(CFG_GPL_OTH) != None:
+        this.showoth = tk.IntVar(value=config.get_str(CFG_GPL_OTH))
     else:
         this.showoth = tk.IntVar(value=DEFAULT_SHOWOTH)
 
-    if config.get(CFG_GPL_COL) != None:
-        this.showcol = tk.IntVar(value=config.get(CFG_GPL_COL))
+    if config.get_str(CFG_GPL_COL) != None:
+        this.showcol = tk.IntVar(value=config.get_str(CFG_GPL_COL))
     else:
         this.showcol = tk.IntVar(value=DEFAULT_SHOWCOL)
 
-    if config.get(CFG_GPL_INT) != None:
-        this.gplint = tk.IntVar(value=config.get(CFG_GPL_INT))
+    if config.get_str(CFG_GPL_INT) != None:
+        this.gplint = tk.IntVar(value=config.get_str(CFG_GPL_INT))
     else:
         this.gplint = tk.IntVar(value=DEFAULT_GPLINT)
 
-    if config.get(CFG_GPL_ALL) != None:
-        this.repall = tk.IntVar(value=config.get(CFG_GPL_ALL))
+    if config.get_str(CFG_GPL_ALL) != None:
+        this.repall = tk.IntVar(value=config.get_str(CFG_GPL_ALL))
     else:
         this.repall = tk.IntVar(value=DEFAULT_REPALL)
 
@@ -428,33 +428,33 @@ def plugin_prefs(parent, cmdr, is_beta):
 
 def prefs_normal_changed():
     if this.integratebutton['state'] != tk.DISABLED:
-        this.old_gplint = int(this.gplint.get())
+        this.old_gplint = int(this.gplint.get_str())
     
     if this.pilotbutton['state'] != tk.DISABLED:
-        this.old_showpil = int(this.showpil.get())
+        this.old_showpil = int(this.showpil.get_str())
     
     if this.reforallbutton['state'] != tk.DISABLED:
-        this.old_repall = int(this.repall.get())
+        this.old_repall = int(this.repall.get_str())
 
     this.gpl.update_window()
 
 
 def prefs_faction_changed():
-    if int(this.showgpl.get()) == 0:
+    if int(this.showgpl.get_str()) == 0:
         this.integratebutton['state'] = tk.DISABLED
         this.gplint.set(0)
     else:
         this.integratebutton['state'] = tk.NORMAL
         this.gplint.set(this.old_gplint)
 
-    if int(this.showrep.get()) == 0:
+    if int(this.showrep.get_str()) == 0:
         this.reforallbutton['state'] = tk.DISABLED
         this.repall.set(0)
     else:
         this.reforallbutton['state'] = tk.NORMAL
         this.repall.set(this.old_repall)
 
-    if int(this.showoth.get()) == 0:
+    if int(this.showoth.get_str()) == 0:
         this.pilotbutton['state'] = tk.DISABLED
         this.showpil.set(0)
         this.reforallbutton['state'] = tk.DISABLED
@@ -465,14 +465,14 @@ def prefs_faction_changed():
         this.pilotbutton['state'] = tk.NORMAL
         this.showpil.set(this.old_showpil)
 
-        if int(this.showrep.get()) == 0:
+        if int(this.showrep.get_str()) == 0:
             this.reforallbutton['state'] = tk.DISABLED
             this.repall.set(0)
         else:
             this.reforallbutton['state'] = tk.NORMAL
             this.repall.set(this.old_repall)
 
-        if int(this.showgpl.get()) == 0:
+        if int(this.showgpl.get_str()) == 0:
             this.integratebutton['state'] = tk.DISABLED
             this.gplint.set(0)
         else:
@@ -484,13 +484,13 @@ def prefs_faction_changed():
 
 def prefs_changed(cmdr, is_beta):
     gpl = this.gpl
-    gpl.showgpl = int(this.showgpl.get())
-    gpl.showrep = int(this.showrep.get())
-    gpl.showpil = int(this.showpil.get())
-    gpl.showoth = int(this.showoth.get())
-    gpl.showcol = int(this.showcol.get())
-    gpl.gplint = int(this.gplint.get())
-    gpl.repall = int(this.repall.get())
+    gpl.showgpl = int(this.showgpl.get_str())
+    gpl.showrep = int(this.showrep.get_str())
+    gpl.showpil = int(this.showpil.get_str())
+    gpl.showoth = int(this.showoth.get_str())
+    gpl.showcol = int(this.showcol.get_str())
+    gpl.gplint = int(this.gplint.get_str())
+    gpl.repall = int(this.repall.get_str())
     gpl.appdesign = config.get_int(CFG_DESIGN)
     config.set(CFG_GPL_SHOW, str(gpl.showgpl))
     config.set(CFG_GPL_REP, str(gpl.showrep))
