@@ -27,13 +27,13 @@ this.showrep = tk.IntVar(value=1)
 this.showpil = tk.IntVar(value=0)
 
 # this.eddnstations = "https://eddb.io/archive/v6/stations.json"
-# this.eddnfactions = "https://eddb.io/archive/v6/factions.json"
+this.eddnfactions = "https://www.edsm.net/api-system-v1/factions?systemName="
 # this.eddnsystemsp = "https://eddb.io/archive/v6/systems_populated.json"
 this.lastTime = 0
 this.lastCheckTime = 0
 this.dataLoaded = False
 
-APP_VERSION = "24.02.11_b2347"
+APP_VERSION = "24.02.17_b2259"
 
 COLOR_R_RED = [64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,67,70,73,76,79,82,85,88,91,94,97,100,103,106,109,112,115,118,121,124,127,130,133,136,139,142,145,148,151,154,157,160,163,166,169,172,175,178,181,184,187,190,193,196,199,202,205,208,211,214,214,214,215,215,216,216,216,217,217,218,218,218,219,219,220,220,220,221,221,222,222,222,223,223,224,224,224,225,225,226,226,226,227,227,228,228,228,229,229,230,230,230,231,231,232,232,232,233,233,234,234,234,235,235,236,236,236,237,237,238,238,238,239,239,240,240,240,241,241,242,242,242,243,243,244,244,244,245,245,246,246,246,247,247,248,248,248,249,249,250,250,250,251,251,252,252,252,253,253,254]
 COLOR_R_GREEN = [255,254,254,253,253,252,252,251,251,250,250,249,249,248,248,247,247,246,246,245,245,244,244,243,243,242,242,241,241,240,240,239,239,238,238,237,237,236,236,235,235,234,234,233,233,232,232,231,231,230,230,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,251,247,243,239,235,234,232,230,229,227,225,224,222,220,219,217,215,214,212,210,209,207,205,204,202,200,199,197,195,194,192,190,189,187,185,184,182,180,179,177,175,174,172,170,169,167,165,164,162,160,159,157,155,154,152,150,149,147,145,144,142,140,139,137,135,134,132,130,129,127,125,124,122,120,119,117,115,114,112,110,109,107,105,104,102,100,99,97,95,94,92,90,89,87,85,84,82,80,79,77,75,74,72,70,69]
@@ -173,6 +173,20 @@ class Gpl(object):
             self.systemfactionstate = []
             self.systemfactionmode = []
             self.systemfactionreputation = []
+            this.dataLoaded = False
+            self.requestUpdates(system)
+            x = 0
+            while x < MAX_FACTIONS:
+                x = x + 1
+                self.widget_Name[MAX_FACTIONS-x].grid_forget()
+                self.widget_State[MAX_FACTIONS-x].grid_forget()
+                self.widget_Desc[MAX_FACTIONS-x].grid_forget()
+                self.widget_Perc[MAX_FACTIONS-x].grid_forget()
+                self.widget_Rep[MAX_FACTIONS-x].grid_forget()
+                self.widget_PercRep[MAX_FACTIONS-x].grid_forget()
+                self.widget_ColorA[MAX_FACTIONS-x].grid_forget()
+                self.widget_ColorB[MAX_FACTIONS-x].grid_forget()
+
         else:
             if len(self.systemfaction) == 0:
                 self.systemfaction.append(sysfaction)
@@ -205,19 +219,35 @@ class Gpl(object):
 
     def update_window(self):
         self.update_systemfactions()
-        nextcheck = 24-time.gmtime().tm_hour+12
-        if nextcheck >= 24:
-            nextcheck = nextcheck-24
-        nextstamp = time.time()-this.lastCheckTime
-        if nextstamp > 86400:
+        # nextcheck = 24-time.gmtime().tm_hour+12
+        # if nextcheck >= 24:
+        #     nextcheck = nextcheck-24
+        # nextstamp = time.time()-this.lastCheckTime
+        # if nextstamp > 86400:
             # check now
-            this.lastCheckTime = time.time()
-            this.dataLoaded = False
-        elif nextcheck == 0:
-            if nextstamp > 86400:
-                # checknow
-                this.lastCheckTime = time.time()
-                this.dataLoaded = False
+        #     this.lastCheckTime = time.time()
+        #     this.dataLoaded = False
+        # elif nextcheck == 0:
+        #     if nextstamp > 86400:
+        #         # checknow
+        #         this.lastCheckTime = time.time()
+        #         this.dataLoaded = False
+
+    def requestUpdates(self, edsmsystem):
+        this.lastTime = time.time()
+        responseF = requests.get(this.eddnfactions + edsmsystem)
+        self.resFactions = responseF.json()
+        this.dataLoaded = True
+
+    def getFactionPlayer(self,faction):
+        if this.dataLoaded == False:
+            return 0
+        return [obj for obj in list(self.resFactions["factions"]) if obj["name"] == str(faction)][0]["isPlayer"]
+
+    def getFactionNative(self,faction, system):
+        if this.dataLoaded == False:
+            return 0
+        return str(faction).find(str(system))
 
     def update_systemfactions(self):
         x = 0
@@ -262,13 +292,13 @@ class Gpl(object):
 
                     faction = self.systemfaction[x]
                     system = self.systemsystem
-                    native = 0
-                    player = 0
-                    if native == 1 or player == 1:
+                    native = self.getFactionNative(faction,system)
+                    player = self.getFactionPlayer(faction)
+                    if native >= 0 or player >= 1:
                         faction = "%s " % faction
-                        if native == 1:
+                        if native >= 0:
                             faction = "%s%s" % (faction,"[N]")
-                        if player == 1:
+                        if player >= 1:
                             faction = "%s%s" % (faction,"[P]")
                     if self.systemfactionmode[x] == "SYS" or self.systemfactionmode[x] == "SYSSQ":
                         self.widget_Name[x-xd].after(0, self.widget_Name[x-xd].config, {"text": "! " + faction})
@@ -350,15 +380,15 @@ class Gpl(object):
 
         else:
             while x < MAX_FACTIONS:
-                self.widget_Name[x].grid_forget()
-                self.widget_State[x].grid_forget()
-                self.widget_Desc[x].grid_forget()
-                self.widget_Perc[x].grid_forget()
-                self.widget_Rep[x].grid_forget()
-                self.widget_PercRep[x].grid_forget()
-                self.widget_ColorA[x].grid_forget()
-                self.widget_ColorB[x].grid_forget()
                 x = x + 1
+                self.widget_Name[MAX_FACTIONS-x].grid_forget()
+                self.widget_State[MAX_FACTIONS-x].grid_forget()
+                self.widget_Desc[MAX_FACTIONS-x].grid_forget()
+                self.widget_Perc[MAX_FACTIONS-x].grid_forget()
+                self.widget_Rep[MAX_FACTIONS-x].grid_forget()
+                self.widget_PercRep[MAX_FACTIONS-x].grid_forget()
+                self.widget_ColorA[MAX_FACTIONS-x].grid_forget()
+                self.widget_ColorB[MAX_FACTIONS-x].grid_forget()
 
             if self.oldlen > 0:
                 self.frame.grid_remove()
