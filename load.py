@@ -33,7 +33,7 @@ this.lastTime = 0
 this.lastCheckTime = 0
 this.dataLoaded = False
 
-APP_VERSION = "24.02.17_b2259"
+APP_VERSION = "24.05.23_b0018"
 
 COLOR_R_RED = [64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,67,70,73,76,79,82,85,88,91,94,97,100,103,106,109,112,115,118,121,124,127,130,133,136,139,142,145,148,151,154,157,160,163,166,169,172,175,178,181,184,187,190,193,196,199,202,205,208,211,214,214,214,215,215,216,216,216,217,217,218,218,218,219,219,220,220,220,221,221,222,222,222,223,223,224,224,224,225,225,226,226,226,227,227,228,228,228,229,229,230,230,230,231,231,232,232,232,233,233,234,234,234,235,235,236,236,236,237,237,238,238,238,239,239,240,240,240,241,241,242,242,242,243,243,244,244,244,245,245,246,246,246,247,247,248,248,248,249,249,250,250,250,251,251,252,252,252,253,253,254]
 COLOR_R_GREEN = [255,254,254,253,253,252,252,251,251,250,250,249,249,248,248,247,247,246,246,245,245,244,244,243,243,242,242,241,241,240,240,239,239,238,238,237,237,236,236,235,235,234,234,233,233,232,232,231,231,230,230,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,251,247,243,239,235,234,232,230,229,227,225,224,222,220,219,217,215,214,212,210,209,207,205,204,202,200,199,197,195,194,192,190,189,187,185,184,182,180,179,177,175,174,172,170,169,167,165,164,162,160,159,157,155,154,152,150,149,147,145,144,142,140,139,137,135,134,132,130,129,127,125,124,122,120,119,117,115,114,112,110,109,107,105,104,102,100,99,97,95,94,92,90,89,87,85,84,82,80,79,77,75,74,72,70,69]
@@ -45,7 +45,7 @@ COLOR_I_BLUE = [64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,6
 
 COLOR_NORM = ("#000000", "#80FFFF", "#80FFFF", "#0018FF", "#FF8000", "#FF8000")
 
-MAX_FACTIONS = 99
+MAX_FACTIONS = 10
 DEFAULT_SHOWGPL = 1
 DEFAULT_SHOWREP = 1
 DEFAULT_SHOWPIL = 0
@@ -105,52 +105,59 @@ class Gpl(object):
     resFactions = []
 
     def load(self):
-        GPL_INT = config.get_str(CFG_GPL_INT)
-        if GPL_INT:
-            self.gplint = int(GPL_INT)
-        else:
-           self.gplint = DEFAULT_GPLINT
+        try:
+            GPL_INT = config.get_int(CFG_GPL_INT)
+        except:
+            GPL_INT = DEFAULT_GPLINT
 
-        GPL_ALL = config.get_str(CFG_GPL_ALL)
-        if GPL_ALL:
-            self.repall = int(GPL_ALL)
-        else:
-           self.repall = DEFAULT_REPALL
+        self.gplint = GPL_INT
 
-        if config.get_int(CFG_DESIGN):
+        try:
+            GPL_ALL = config.get_int(CFG_GPL_ALL)
+        except:
+            GPL_ALL = DEFAULT_REPALL
+
+        self.repall = GPL_ALL
+
+        try:
             self.appdesign = config.get_int(CFG_DESIGN)
-        else:
-           self.appdesign = 0
+        except:
+            self.appdesign = 0
 
-        GPL_SHOW = config.get_str(CFG_GPL_SHOW)
-        if GPL_SHOW:
-            self.showgpl = int(GPL_SHOW)
-        else:
-           self.showgpl = DEFAULT_SHOWGPL
+        try:
+            GPL_SHOW = config.get_int(CFG_GPL_SHOW)
+        except:
+            GPL_SHOW = DEFAULT_SHOWGPL
 
-        GPL_REP = config.get_str(CFG_GPL_REP)
-        if GPL_REP:
-            self.showrep = int(GPL_REP)
-        else:
-            self.showrep = DEFAULT_SHOWREP
+        self.showgpl = GPL_SHOW
 
-        GPL_PIL = config.get_str(CFG_GPL_PIL)
-        if GPL_PIL:
-            self.showpil = int(GPL_PIL)
-        else:
-            self.showpil = DEFAULT_SHOWPIL
+        try:
+            GPL_REP = config.get_int(CFG_GPL_REP)
+        except:
+            GPL_REP = DEFAULT_SHOWREP
 
-        GPL_OTH = config.get_str(CFG_GPL_OTH)
-        if GPL_OTH:
-            self.showoth = int(GPL_OTH)
-        else:
-            self.showoth = DEFAULT_SHOWOTH
+        self.showrep = GPL_REP
 
-        GPL_COL = config.get_str(CFG_GPL_COL)
-        if GPL_COL:
-            self.showcol = int(GPL_COL)
-        else:
-            self.showcol = DEFAULT_SHOWCOL
+        try:
+            GPL_PIL = config.get_int(CFG_GPL_PIL)
+        except:
+            GPL_PIL = DEFAULT_SHOWPIL
+
+        self.showpil = GPL_PIL
+
+        try:
+            GPL_OTH = config.get_int(CFG_GPL_OTH)
+        except:
+            GPL_OTH = DEFAULT_SHOWOTH
+
+        self.showoth = GPL_OTH
+
+        try:
+            GPL_COL = config.get_int(CFG_GPL_COL)
+        except:
+            GPL_COL = DEFAULT_SHOWCOL
+
+        self.showcol = GPL_COL
 
         self.influence = 0
         self.oldlen = 0
@@ -175,17 +182,19 @@ class Gpl(object):
             self.systemfactionreputation = []
             this.dataLoaded = False
             self.requestUpdates(system)
-            x = 0
+            x = 1
             while x < MAX_FACTIONS:
+                self.widget_Name[x].grid_forget()
+                self.widget_State[x].grid_forget()
+                self.widget_Desc[x].grid_forget()
+                self.widget_Perc[x].grid_forget()
+                self.widget_Rep[x].grid_forget()
+                self.widget_PercRep[x].grid_forget()
+                self.widget_ColorA[x].grid_forget()
+                self.widget_ColorB[x].grid_forget()
                 x = x + 1
-                self.widget_Name[MAX_FACTIONS-x].grid_forget()
-                self.widget_State[MAX_FACTIONS-x].grid_forget()
-                self.widget_Desc[MAX_FACTIONS-x].grid_forget()
-                self.widget_Perc[MAX_FACTIONS-x].grid_forget()
-                self.widget_Rep[MAX_FACTIONS-x].grid_forget()
-                self.widget_PercRep[MAX_FACTIONS-x].grid_forget()
-                self.widget_ColorA[MAX_FACTIONS-x].grid_forget()
-                self.widget_ColorB[MAX_FACTIONS-x].grid_forget()
+
+            x = 0
 
         else:
             if len(self.systemfaction) == 0:
@@ -215,7 +224,7 @@ class Gpl(object):
                 self.systemfactionmode.insert(insin, mode)
                 self.systemfactionreputation.insert(insin, reputation)
 
-        # self.update_window()
+        self.update_systemfactions()
 
     def update_window(self):
         self.update_systemfactions()
@@ -246,16 +255,16 @@ class Gpl(object):
 
     def getFactionNative(self,faction, system):
         if this.dataLoaded == False:
-            return 0
+            return -1
         return str(faction).find(str(system))
 
     def update_systemfactions(self):
         x = 0
         xd = 0
+        self.frame.grid()
+        self.widget_System[0].after(0, self.widget_System[0].config, {"text": ">> " + self.systemgov})
+        self.widget_Security[0].after(0, self.widget_Security[0].config, {"text": self.systemsecurity + " <<"})
         if len(self.systemfaction) > 0:
-            self.frame.grid()
-            self.widget_System[0].after(0, self.widget_System[0].config, {"text": ">> " + self.systemgov})
-            self.widget_Security[0].after(0, self.widget_Security[0].config, {"text": self.systemsecurity + " <<"})
             self.oldlen = len(self.systemfaction)
             gplint = self.gplint
             repall = self.repall
@@ -380,15 +389,15 @@ class Gpl(object):
 
         else:
             while x < MAX_FACTIONS:
+                self.widget_Name[x].grid_forget()
+                self.widget_State[x].grid_forget()
+                self.widget_Desc[x].grid_forget()
+                self.widget_Perc[x].grid_forget()
+                self.widget_Rep[x].grid_forget()
+                self.widget_PercRep[x].grid_forget()
+                self.widget_ColorA[x].grid_forget()
+                self.widget_ColorB[x].grid_forget()
                 x = x + 1
-                self.widget_Name[MAX_FACTIONS-x].grid_forget()
-                self.widget_State[MAX_FACTIONS-x].grid_forget()
-                self.widget_Desc[MAX_FACTIONS-x].grid_forget()
-                self.widget_Perc[MAX_FACTIONS-x].grid_forget()
-                self.widget_Rep[MAX_FACTIONS-x].grid_forget()
-                self.widget_PercRep[MAX_FACTIONS-x].grid_forget()
-                self.widget_ColorA[MAX_FACTIONS-x].grid_forget()
-                self.widget_ColorB[MAX_FACTIONS-x].grid_forget()
 
             if self.oldlen > 0:
                 self.frame.grid_remove()
@@ -396,40 +405,40 @@ class Gpl(object):
 
 
 def plugin_prefs(parent, cmdr, is_beta):
-    if config.get_str(CFG_GPL_SHOW) != None:
-        this.showgpl = tk.IntVar(value=config.get_str(CFG_GPL_SHOW))
-    else:
-        this.showgpl = tk.IntVar(value=DEFAULT_SHOWGPL)
+    try:
+        this.gpl_int = tk.IntVar(value=config.get_int(CFG_GPL_INT))
+    except:
+        this.gpl_int = tk.IntVar(value=DEFAULT_GPLINT)
 
-    if config.get_str(CFG_GPL_REP) != None:
-        this.showrep = tk.IntVar(value=config.get_str(CFG_GPL_REP))
-    else:
-        this.showrep = tk.IntVar(value=DEFAULT_SHOWREP)
+    try:
+        this.rep_all = tk.IntVar(value=config.get_int(CFG_GPL_ALL))
+    except:
+        this.rep_all = tk.IntVar(value=DEFAULT_REPALL)
 
-    if config.get_str(CFG_GPL_PIL) != None:
-        this.showpil = tk.IntVar(value=config.get_str(CFG_GPL_PIL))
-    else:
-        this.showpil = tk.IntVar(value=DEFAULT_SHOWPIL)
+    try:
+        this.gpl_show = tk.IntVar(value=config.get_int(CFG_GPL_SHOW))
+    except:
+        this.gpl_show = tk.IntVar(value=DEFAULT_SHOWGPL)
 
-    if config.get_str(CFG_GPL_OTH) != None:
-        this.showoth = tk.IntVar(value=config.get_str(CFG_GPL_OTH))
-    else:
-        this.showoth = tk.IntVar(value=DEFAULT_SHOWOTH)
+    try:
+        this.rep_show = tk.IntVar(value=config.get_int(CFG_GPL_REP))
+    except:
+        this.rep_show = tk.IntVar(value=DEFAULT_SHOWREP)
 
-    if config.get_str(CFG_GPL_COL) != None:
-        this.showcol = tk.IntVar(value=config.get_str(CFG_GPL_COL))
-    else:
-        this.showcol = tk.IntVar(value=DEFAULT_SHOWCOL)
+    try:
+        this.pil_show = tk.IntVar(value=config.get_int(CFG_GPL_PIL))
+    except:
+        this.pil_show = tk.IntVar(value=DEFAULT_SHOWPIL)
 
-    if config.get_str(CFG_GPL_INT) != None:
-        this.gplint = tk.IntVar(value=config.get_str(CFG_GPL_INT))
-    else:
-        this.gplint = tk.IntVar(value=DEFAULT_GPLINT)
+    try:
+        this.oth_show = tk.IntVar(value=config.get_int(CFG_GPL_OTH))
+    except:
+        this.oth_show = tk.IntVar(value=DEFAULT_SHOWOTH)
 
-    if config.get_str(CFG_GPL_ALL) != None:
-        this.repall = tk.IntVar(value=config.get_str(CFG_GPL_ALL))
-    else:
-        this.repall = tk.IntVar(value=DEFAULT_REPALL)
+    try:
+        this.col_show = tk.IntVar(value=config.get_int(CFG_GPL_COL))
+    except:
+        this.col_show = tk.IntVar(value=DEFAULT_SHOWCOL)
 
     this.old_gplint = 0
     this.old_showpil = 0
@@ -437,19 +446,19 @@ def plugin_prefs(parent, cmdr, is_beta):
 
     frame = nb.Frame(parent)
     nb.Label(frame, text="GPL-EDMC Version: {INSTALLED}\n".format(INSTALLED=APP_VERSION)).grid(padx=10, sticky=tk.W)
-    this.factionbutton = nb.Checkbutton(frame, text=_("Show other System Factions").encode('iso-8859-1'), variable=this.showoth, onvalue = 1, offvalue = 0, command=prefs_faction_changed)
+    this.factionbutton = nb.Checkbutton(frame, text=_("Show other System Factions").encode('iso-8859-1'), variable=this.oth_show, onvalue = 1, offvalue = 0, command=prefs_faction_changed)
     this.factionbutton.grid(padx=10, pady = 3, sticky=tk.W)
-    this.pilotbutton = nb.Checkbutton(frame, text=_("Show 'Pilots' Federation Local Branch'-Faction in Factionlist").encode('iso-8859-1'), variable=this.showpil, onvalue = 1, offvalue = 0, command=prefs_normal_changed)
+    this.pilotbutton = nb.Checkbutton(frame, text=_("Show 'Pilots' Federation Local Branch'-Faction in Factionlist").encode('iso-8859-1'), variable=this.pil_show, onvalue = 1, offvalue = 0, command=prefs_normal_changed)
     this.pilotbutton.grid(padx=25, pady = 1, sticky=tk.W)
-    this.extragplbutton = nb.Checkbutton(frame, text=_("Show Extra influence for Own-Faction").encode('iso-8859-1'), variable=this.showgpl, onvalue = 1, offvalue = 0, command=prefs_faction_changed)
+    this.extragplbutton = nb.Checkbutton(frame, text=_("Show Extra influence for Own-Faction").encode('iso-8859-1'), variable=this.gpl_show, onvalue = 1, offvalue = 0, command=prefs_faction_changed)
     this.extragplbutton.grid(padx=10, pady = 3, sticky=tk.W)
-    this.integratebutton = nb.Checkbutton(frame, text=_("Integrate notice in Factionlist").encode('iso-8859-1'), variable=this.gplint, onvalue = 1, offvalue = 0, command=prefs_normal_changed)
+    this.integratebutton = nb.Checkbutton(frame, text=_("Integrate notice in Factionlist").encode('iso-8859-1'), variable=this.gpl_int, onvalue = 1, offvalue = 0, command=prefs_normal_changed)
     this.integratebutton.grid(padx=25, pady = 1, sticky=tk.W)
-    this.reputationbutton = nb.Checkbutton(frame, text=_("Show own reputation").encode('iso-8859-1'), variable=this.showrep, onvalue = 1, offvalue = 0, command=prefs_faction_changed)
+    this.reputationbutton = nb.Checkbutton(frame, text=_("Show own reputation").encode('iso-8859-1'), variable=this.rep_show, onvalue = 1, offvalue = 0, command=prefs_faction_changed)
     this.reputationbutton.grid(padx=10, pady = 3, sticky=tk.W)
-    this.reforallbutton = nb.Checkbutton(frame, text=_("Show reputation for all factions").encode('iso-8859-1'), variable=this.repall, onvalue = 1, offvalue = 0, command=prefs_normal_changed)
+    this.reforallbutton = nb.Checkbutton(frame, text=_("Show reputation for all factions").encode('iso-8859-1'), variable=this.rep_all, onvalue = 1, offvalue = 0, command=prefs_normal_changed)
     this.reforallbutton.grid(padx=25, pady = 1, sticky=tk.W)
-    this.colorizebutton = nb.Checkbutton(frame, text=_("Show colorized percentage values").encode('iso-8859-1'), variable=this.showcol, onvalue = 1, offvalue = 0)
+    this.colorizebutton = nb.Checkbutton(frame, text=_("Show colorized percentage values").encode('iso-8859-1'), variable=this.col_show, onvalue = 1, offvalue = 0)
     this.colorizebutton.grid(padx=10, pady = 3, sticky=tk.W)
     prefs_normal_changed()
     prefs_faction_changed()
@@ -458,77 +467,77 @@ def plugin_prefs(parent, cmdr, is_beta):
 
 def prefs_normal_changed():
     if this.integratebutton['state'] != tk.DISABLED:
-        this.old_gplint = int(this.gplint.get_str())
+        this.old_gplint = this.gpl_int.get()
     
     if this.pilotbutton['state'] != tk.DISABLED:
-        this.old_showpil = int(this.showpil.get_str())
+        this.old_showpil = this.pil_show.get()
     
     if this.reforallbutton['state'] != tk.DISABLED:
-        this.old_repall = int(this.repall.get_str())
+        this.old_repall = this.rep_all.get()
 
     this.gpl.update_window()
 
 
 def prefs_faction_changed():
-    if int(this.showgpl.get_str()) == 0:
+    if this.gpl_show.get() == 0:
         this.integratebutton['state'] = tk.DISABLED
-        this.gplint.set(0)
+        this.gpl_int.set(0)
     else:
         this.integratebutton['state'] = tk.NORMAL
-        this.gplint.set(this.old_gplint)
+        this.gpl_int.set(this.old_gplint)
 
-    if int(this.showrep.get_str()) == 0:
+    if this.rep_show.get() == 0:
         this.reforallbutton['state'] = tk.DISABLED
-        this.repall.set(0)
+        this.rep_all.set(0)
     else:
         this.reforallbutton['state'] = tk.NORMAL
-        this.repall.set(this.old_repall)
+        this.rep_all.set(this.old_repall)
 
-    if int(this.showoth.get_str()) == 0:
+    if this.oth_show.get() == 0:
         this.pilotbutton['state'] = tk.DISABLED
-        this.showpil.set(0)
+        this.pil_show.set(0)
         this.reforallbutton['state'] = tk.DISABLED
-        this.repall.set(0)
+        this.rep_all.set(0)
         this.integratebutton['state'] = tk.DISABLED
-        this.gplint.set(0)
+        this.gpl_int.set(0)
     else:
         this.pilotbutton['state'] = tk.NORMAL
-        this.showpil.set(this.old_showpil)
+        this.pil_show.set(this.old_showpil)
 
-        if int(this.showrep.get_str()) == 0:
+        if this.rep_show.get() == 0:
             this.reforallbutton['state'] = tk.DISABLED
-            this.repall.set(0)
+            this.rep_all.set(0)
         else:
             this.reforallbutton['state'] = tk.NORMAL
-            this.repall.set(this.old_repall)
+            this.rep_all.set(this.old_repall)
 
-        if int(this.showgpl.get_str()) == 0:
+        if this.gpl_show.get() == 0:
             this.integratebutton['state'] = tk.DISABLED
-            this.gplint.set(0)
+            this.gpl_int.set(0)
         else:
             this.integratebutton['state'] = tk.NORMAL
-            this.gplint.set(this.old_gplint)
+            this.gpl_int.set(this.old_gplint)
 
     this.gpl.update_window()
 
 
 def prefs_changed(cmdr, is_beta):
     gpl = this.gpl
-    gpl.showgpl = int(this.showgpl.get_str())
-    gpl.showrep = int(this.showrep.get_str())
-    gpl.showpil = int(this.showpil.get_str())
-    gpl.showoth = int(this.showoth.get_str())
-    gpl.showcol = int(this.showcol.get_str())
-    gpl.gplint = int(this.gplint.get_str())
-    gpl.repall = int(this.repall.get_str())
+    gpl.showgpl = this.gpl_show.get()
+    gpl.showrep = this.rep_show.get()
+    gpl.showpil = this.pil_show.get()
+    gpl.showoth = this.oth_show.get()
+    gpl.showcol = this.col_show.get()
+    gpl.gplint = this.gpl_int.get()
+    gpl.repall = this.rep_all.get()
     gpl.appdesign = config.get_int(CFG_DESIGN)
-    config.set(CFG_GPL_SHOW, str(gpl.showgpl))
-    config.set(CFG_GPL_REP, str(gpl.showrep))
-    config.set(CFG_GPL_PIL, str(gpl.showpil))
-    config.set(CFG_GPL_OTH, str(gpl.showoth))
-    config.set(CFG_GPL_COL, str(gpl.showcol))
-    config.set(CFG_GPL_INT, str(gpl.gplint))
-    config.set(CFG_GPL_ALL, str(gpl.repall))
+    config.set(CFG_GPL_SHOW, gpl.showgpl)
+    config.set(CFG_GPL_REP, gpl.showrep)
+    config.set(CFG_GPL_PIL, gpl.showpil)
+    config.set(CFG_GPL_OTH, gpl.showoth)
+    config.set(CFG_GPL_COL, gpl.showcol)
+    config.set(CFG_GPL_INT, gpl.gplint)
+    config.set(CFG_GPL_ALL, gpl.repall)
     gpl.update_window()
 
 
